@@ -13,9 +13,6 @@ jobs:
         node-version: [14, 16, 18]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
     - name: Show current directory and files
       run: |
         pwd
@@ -32,9 +29,10 @@ jobs:
         npm ci
 
     - name: Run ESLint
-      run: |
-        cd github-actions-js-demo
-        npx eslint .
+      run: npx eslint .
+
+    - name: Fix jest permissions
+      run: chmod +x node_modules/.bin/jest
 
     - name: Run tests
       run: |

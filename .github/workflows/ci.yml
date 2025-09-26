@@ -1,4 +1,4 @@
-name: CI for JS Testing
+name: CI for JS Testing with Linting
 
 on:
   pull_request:
@@ -6,25 +6,26 @@ on:
       - main
 
 jobs:
-  test:
+  lint-and-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14, 16, 18]
 
     steps:
-    - name: Checkout repository code
+    - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Node.js
+    - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
       run: npm ci
 
-    - name: Show jest binary permissions
-      run: ls -la node_modules/.bin/
+    - name: Run ESLint
+      run: npx eslint .
 
     - name: Run tests
       run: npx jest
-      
-# тут я хочу залишити коментар

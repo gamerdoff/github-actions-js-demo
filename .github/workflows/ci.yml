@@ -25,3 +25,5 @@ jobs:
 
     - name: Run tests
       run: npx jest
+
+# тут я хочу залишити коментар

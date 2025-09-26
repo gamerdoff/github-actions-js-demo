@@ -13,6 +13,10 @@ jobs:
         node-version: [14, 16, 18]
 
     steps:
+    - name: Show current directory and files
+      run: |
+        pwd
+        ls -la
 
     - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -24,6 +28,7 @@ jobs:
 
     - name: Run ESLint
       run: npx eslint .
+
     - name: Fix jest permissions
       run: chmod +x node_modules/.bin/jest
 
